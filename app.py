@@ -1,4 +1,6 @@
 
+import re
+
 from flask import Flask, render_template, request, redirect, url_for
 from bson.objectid import ObjectId
 from pymongo import MongoClient
@@ -17,8 +19,23 @@ students = db["students"]
 
 @app.route("/")
 def home():
-    all_students = list(students.find())
-    return render_template("index.html", students=all_students)
+    q = request.args.get("q", "").strip()
+    age_range = request.args.get("age_range", "").strip()
+
+    query = {}
+
+    if q:
+        query["name"] = {"$regex": re.escape(q), "$options": "i"}
+
+    if age_range:
+        try:
+            low, high = age_range.split("-")
+            query["age"] = {"$gte": int(low), "$lt": int(high)}
+        except (ValueError, TypeError):
+            pass
+
+    all_students = list(students.find(query))
+    return render_template("index.html", students=all_students, q=q, age_range=age_range)
 
 
 @app.route("/add", methods=["POST"])
