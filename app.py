@@ -1,5 +1,6 @@
 
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
+from bson.objectid import ObjectId
 from pymongo import MongoClient
 
 app = Flask(__name__)
@@ -31,7 +32,17 @@ def add_student():
             "age": int(age)
         })
 
-    return redirect("/")
+    return redirect(url_for("home"))
+
+
+@app.route("/delete/<student_id>", methods=["POST"])
+def delete_student(student_id):
+    try:
+        students.delete_one({"_id": ObjectId(student_id)})
+    except Exception:
+        pass
+
+    return redirect(url_for("home"))
 
 
 if __name__ == "__main__":
