@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Python + MongoDB</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            padding: 40px;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 10px;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #198754;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        li {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Student Management</h1>
+
+    <h3>Add a student</h3>
+
+    <form action="/add" method="POST">
+        <input type="text" name="name"
+               placeholder="Student name" required>
+
+        <input type="number" name="age"
+               placeholder="Student age" required>
+
+        <button type="submit">Add Student</button>
+    </form>
+
+    <h3>Students List</h3>
+
+    <ul>
+        {% for student in students %}
+            <li>
+                {{ student.name }} - {{ student.age }} years old
+            </li>
+        {% else %}
+            <li>No students found.</li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+</body>
+</html>
