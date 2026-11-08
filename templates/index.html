@@ -19,7 +19,7 @@
             border-radius: 10px;
         }
 
-        input, select, button {
+        input, button {
             padding: 10px;
             margin: 5px 0;
             width: 100%;
@@ -66,23 +66,6 @@
                placeholder="Student age" required>
 
         <button type="submit">Add Student</button>
-    </form>
-
-    <h3>Search students</h3>
-
-    <form action="/" method="GET">
-        <input type="text" name="q"
-               placeholder="Search by name" value="{{ q }}">
-
-        <select name="age_range">
-            <option value="">All ages</option>
-            <option value="1-10" {% if age_range == '1-10' %}selected{% endif %}>1 - 10</option>
-            <option value="10-18" {% if age_range == '10-18' %}selected{% endif %}>10 - 18</option>
-            <option value="18-25" {% if age_range == '18-25' %}selected{% endif %}>18 - 25</option>
-            <option value="25-100" {% if age_range == '25-100' %}selected{% endif %}>25 +</option>
-        </select>
-
-        <button type="submit">Search</button>
     </form>
 
     <h3>Students List</h3>
